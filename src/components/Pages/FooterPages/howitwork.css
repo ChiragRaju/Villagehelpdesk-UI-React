@@ -1,0 +1,49 @@
+.cards {
+    padding: 4rem;
+    background:black;
+  }
+ 
+.marquee{
+  font-size: 30px;
+  color: #fff;
+
+}
+ 
+  
+  h1 {
+    text-align: center;
+    color: #fff;
+  }
+  
+  .cards__container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    max-width: 1120px;
+    width: 90%;
+    margin: 0 auto;
+  }
+  
+  .cards__wrapper {
+    position: relative;
+    margin: 50px 0 45px;
+  }
+  
+  .cards__items {
+    margin-right:5px;
+    margin-bottom: 24px;
+  }
+  
+  .cards__items {
+    display: flex;
+    flex: 1;
+    margin: 0 1rem;
+    border-radius: 10px;
+  }
+
+  
+  @media only screen and (max-width: 1024px) {
+    .cards__item {
+      margin-bottom: 2rem;
+    }
+  }

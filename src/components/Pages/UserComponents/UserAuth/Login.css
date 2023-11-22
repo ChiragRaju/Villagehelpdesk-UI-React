@@ -1,0 +1,44 @@
+/* Login.css */
+
+.paper-container {
+    padding: 20px;
+    height: 80vh;
+    width: 25vw;
+    margin: 20px auto;
+    margin-top: 50px;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  
+  /* .paper-container:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02);
+  } */
+  
+  .avatar-container {
+    background-color: #1bbd7e;
+    transition: background-color 0.3s;
+  }
+  
+  .avatar-container:hover {
+    background-color: #168d63;
+  }
+  
+  .btn-container {
+    margin: 8px 0;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-container:hover {
+    background-color: #168d63;
+  }
+  
+  .input-field {
+    /* Add any additional styling for input fields */
+  }
+  
+  .error-message {
+    /* Add styles for error messages */
+    color: red;
+    margin-top: 10px;
+  }
+  

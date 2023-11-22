@@ -1,0 +1,156 @@
+.footer-container {
+  background-color: #333;
+  padding: 20px;
+  text-align: center;
+}
+
+.footer-subscription-heading,
+.footer-subscription-text {
+  animation: slide-up 0.5s ease-in-out;
+  
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.footer-link-wrapper {
+  display: flex;
+}
+
+.footer-link-items  {
+  display: flex;
+  flex-direction: column;
+  margin: 16px;
+  text-align: left;
+}
+
+.footer-link-items h2 {
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.footer-link-items a {
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.footer-link-items a:hover {
+  opacity: 0.8;
+}
+
+.social-media {
+  padding: 20px 0;
+  
+}
+.hover-link {
+  color:white;
+  transition: color 0.3s ease-in-out;
+}
+
+.hover-link:hover {
+  color:blue;
+}
+
+.social-media-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  justify-self: start;
+  margin-bottom: 16px;
+}
+
+.social-logo {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  padding-bottom: 100px;
+}
+
+.social-icon-link {
+  color: #fff;
+  font-size: 24px;
+  margin-right: 10px;
+  transition: opacity 0.3s ease-in-out;
+  padding-left: 10px;
+}
+
+.social-icon-link:hover {
+  opacity: 0.8;
+}
+
+.website-rights {
+  color: #fff;
+  align-items: center;
+  padding-bottom: 16px;
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.footer-container {
+  position: relative;
+  background-color: #101522;
+  padding: 4rem 0 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #101522;
+  }
+  50% {
+    background-color: #293241;
+  }
+  100% {
+    background-color: #101522;
+  }
+}
+footer {
+  background-color: #101522; /* Replace with your dark background color */
+  text-align: center;
+  padding: 20px 0; /* Add padding to create space around the icons */
+}
+
+footer a {
+  color: white; /* Set the color for the icons to white */
+  transition: color 0.3s ease;
+  margin: 0 10px; /* Add margin to create space between the icons */
+}
+
+footer a:hover {
+  color: #ff0000; /* Set the color for the icons on hover */
+}
+
+footer .social-icon {
+  font-size: 24px;
+  fill: white; /* Set the fill color for the icons to white */
+}
+
+footer span {
+  color: white;
+}
