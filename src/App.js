@@ -67,7 +67,6 @@ function App() {
       
        
         <Routes>
-
           <Route  path='/' element={<Home/>} />
            <Route path='/Services' element={<Services/>}/>
            <Route path='/Adminlogin' element={<AdminLogin/>} /> 
