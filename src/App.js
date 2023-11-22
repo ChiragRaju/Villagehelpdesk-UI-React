@@ -36,49 +36,45 @@ import NotificationSenderComponent from './components/Pages/AdminComponents/Noti
 import ForgotPassword from './components/Pages/UserComponents/UserAuth/ForgotPassword';
 import ResetPassword from './components/Pages/UserComponents/UserAuth/ResetPassword';
 import SuperWiser from './components/Pages/AdminComponents/SuperWiser';
-import { useAuth } from './context/AuthContext';
+import { AuthProvider,useAuth } from './context/AuthContext';
 
-function PrivateRoute({ element, adminRoute = false }) {
-  const { user, admin } = useAuth();
 
-  // If it's an admin route and the user is not an admin, redirect to the admin login
-  if (adminRoute && !admin) {
-    return <Navigate to="/Adminlogin" />;
-  }
-
-  // If it's not an admin route and the user is not authenticated, redirect to the user login
-  return !adminRoute && !user ? <Navigate to="/Login" /> : element;
+function PrivateRoute({ element }) {
+  const { user } = useAuth();
+ 
+  // If the user is not authenticated, redirect to the login page
+  return user ? element : <Navigate to="/Login" />;
 
 }
 
 
+
 function App() {
   
-  // const fullname=jwtDecode(localStorage.getItem('authToken')).email;
-  
-  // console.log(fullname);
+ 
 
   
   
   return (
     <div className="App">
-    
+    <AuthProvider>
        <Router>
       
        
         <Routes>
+
           <Route  path='/' element={<Home/>} />
            <Route path='/Services' element={<Services/>}/>
            <Route path='/Adminlogin' element={<AdminLogin/>} /> 
-          <Route path='/AdminDashboard' element={<PrivateRoute element={<AdminDashboard/>}adminRoute />}/>
-          <Route path='/superWiser' element={<PrivateRoute element={<SuperWiser />}adminRoute />}/>
+          <Route path='/AdminDashboard' element={<AdminDashboard/>}/>
+          <Route path='/superWiser' element={<SuperWiser/>}/>
           <Route path='/SuperwiserList' element ={<SuperWiserList/>}/>
-          <Route path='/update-status' element={<PrivateRoute element={<UpdateStatusButton/>}adminRoute />}/>
-          <Route path='/ComplaintsList' element={<PrivateRoute element={<ComplaintList/>}adminRoute />}/>
+          <Route path='/update-status' element={<UpdateStatusButton/>}/>
+          <Route path='/ComplaintsList' element={<ComplaintList/>}/>
           <Route path='/complaints' element={<Complaints/>}/> 
-          <Route path='/FeedbackList' element={<PrivateRoute element={<FeedbackList/>}adminRoute />}/>
+          <Route path='/FeedbackList' element={<FeedbackList/>}/>
           <Route path='/email' element={<EmailForm/>}/>
-          <Route path='/send-notifications' element={<PrivateRoute element={<NotificationSenderComponent/>}adminRoute />}/>
+          <Route path='/send-notifications' element={<NotificationSenderComponent/>}/>
 
           
 
@@ -106,7 +102,7 @@ function App() {
         </Routes>
       </Router>
    
-      
+      </AuthProvider>
       
     </div>
   );

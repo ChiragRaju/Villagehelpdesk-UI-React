@@ -80,90 +80,95 @@ export default function Sidenav() {
 
   return (
     <>
-    <Box>
-      <CssBaseline />
+      <Box>
+        <CssBaseline />
 
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
-          <IconButton onClick={() => setOpen(!open)}>
-            <MenuIcon />
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {admin && (
-            <>
-              <ListItem disablePadding sx={{ display: 'block' }}>
-                <ListItemButton
-                  component={Link}
-                  to="/FeedbackList"
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : 'auto',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <MailIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="FeedbackList" sx={{ opacity: open ? 1 : 0 }} />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding sx={{ display: 'block' }}>
-                <ListItemButton
-                  component={Link}
-                  to="/userlist"
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : 'auto',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <MailIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Users List" sx={{ opacity: open ? 1 : 0 }} />
-                </ListItemButton>
-              </ListItem>
-            </>
-          )}
+        <Drawer variant="permanent" open={open}>
+          <DrawerHeader>
+            <IconButton onClick={() => setOpen(!open)}>
+              <MenuIcon />
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <List>
+           
 
-          <ListItem disablePadding sx={{ display: 'block' }}>
-            <ListItemButton
-              onClick={handleLogout}
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
+            <ListItem disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                component={Link}
+                to="/FeedbackList" // Assuming "/add-supervisor" is the path to your Add Supervisor component
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
                 }}
               >
-                <LogoutIcon />
-              </ListItemIcon>
-              <ListItemText primary="Log Out" sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </Drawer>
-    </Box>
-  </>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {/* <PersonAddIcon /> */}
+                  <MailIcon />
+                </ListItemIcon>
+                <ListItemText primary="FeedbackList" sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                component={Link}
+                to="/userlist" // Assuming "/email-form" is the path to your EmailForm component
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <MailIcon />
+                </ListItemIcon>
+                <ListItemText primary="Users List" sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+              component={Link}
+              to='/'
+              // onClick={()=>{localStorage.clear()
+              // navigate('/Login')
+              // }}
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <LogoutIcon />
+                </ListItemIcon>
+               
+                  <ListItemText  primary="Log Out" sx={{ opacity: open ? 1 : 0 }} />
+               
+              </ListItemButton>
+            </ListItem>
+          </List>
+        </Drawer>
+      </Box>
+    </>
   );
 }

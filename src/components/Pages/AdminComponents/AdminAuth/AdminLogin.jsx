@@ -58,8 +58,15 @@ function AdminLogin() {
       });
 
       if (response.status === 200) {
-        const token = response.data.token;
-        Adminlogin(token);
+        // Assuming the server responds with a token
+        // const token = response.data.token;
+
+        // Store the token in local storage
+        // localStorage.setItem('authToken', token);
+
+        // Decode the token (if needed)
+        // const decodedToken = jwt_decode(token);
+        // console.log(decodedToken);
         toast.success('Successfully logged in');
         // Redirect to AdminDashboard page
         setInterval(() => {
