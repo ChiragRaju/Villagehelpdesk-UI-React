@@ -30,22 +30,15 @@ import EmailForm from './components/Pages/AdminComponents/EmailForm';
 import FeedbackList from './components/Pages/UserComponents/FeedbackList';
 import CheckStatus from './components/Pages/UserComponents/CheckStatus';
 import UpdateStatusButton from './components/Pages/AdminComponents/UpdateStatusButton';
-import jwtDecode from 'jwt-decode';
-import { useState } from 'react';
 import NotificationSenderComponent from './components/Pages/AdminComponents/NotificationSenderComponent';
 import ForgotPassword from './components/Pages/UserComponents/UserAuth/ForgotPassword';
 import ResetPassword from './components/Pages/UserComponents/UserAuth/ResetPassword';
 import SuperWiser from './components/Pages/AdminComponents/SuperWiser';
-import { AuthProvider,useAuth } from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext';
+import { PrivateRoute } from './context/PrivateRoutes';
 
 
-function PrivateRoute({ element }) {
-  const { user } = useAuth();
- 
-  // If the user is not authenticated, redirect to the login page
-  return user ? element : <Navigate to="/Login" />;
 
-}
 
 
 
@@ -79,10 +72,10 @@ function App() {
           
 
           <Route path='/UserRegistration' element={<UserSignUp/>} /> 
-          <Route path='/status' element={<PrivateRoute element={<CheckStatus />} />}/>
+          <Route path='/status' element={<PrivateRoute><CheckStatus/></PrivateRoute>}/>
           <Route path='/Login' element ={<Login/>}/>
-          <Route path="/userdashboard" element={<PrivateRoute element={<UserDashboard />} />} />
-          <Route path='/IssueRaised' element ={<PrivateRoute element={<UserComplaints/>} />}/>
+          <Route path="/userdashboard" element={<PrivateRoute><UserDashboard/></PrivateRoute>} />
+          <Route path='/IssueRaised' element ={<PrivateRoute><UserComplaints/></PrivateRoute>}/>
           <Route path='/forgot-Password' element ={<ForgotPassword/>}/>
 
           <Route path='/reset-Password' element ={<ResetPassword/>}/>

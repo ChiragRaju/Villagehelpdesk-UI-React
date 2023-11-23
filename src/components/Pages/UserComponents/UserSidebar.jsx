@@ -15,17 +15,32 @@ import MailIcon from '@mui/icons-material/Mail';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Avatar, Link } from '@mui/material';
 import { useAuth } from '../../../context/AuthContext'; // Adjust the path
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const drawerWidth = 240;
 
 export default function UserSidebar() {
-  const { user, logout } = useAuth(); // Access user information and logout function from AuthContext
+  const { user, logout, getToken } = useAuth();
+  const navigate = useNavigate(); // Use useNavigate instead of useHistory
+
   const linkStyle = {
     textDecoration: 'none',
     color: '#ffff',
     '&:hover': {
       color: '#1976D2',
     },
+  };
+
+  const handleNavigation = (path) => {
+    const token = getToken();
+
+    if (token) {
+      // If token is present, navigate using useNavigate
+      navigate(path);
+    } else {
+      // If token is not present, redirect manually
+      navigate('/Login')
+    }
   };
 
   return (
@@ -50,7 +65,28 @@ export default function UserSidebar() {
         {user && <Typography style={{ alignSelf: 'center', marginBottom: '40px' }}>{user.email}</Typography>}
 
         <List>
-          {[<Link href="/IssueRaised" sx={linkStyle}>Issue Raising</Link>, <Link href="/status" sx={linkStyle}>Status</Link>].map((text, index) => (
+          {[
+            <Link
+              href="#"
+              sx={linkStyle}
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavigation('/IssueRaised');
+              }}
+            >
+              Issue Raising
+            </Link>,
+            <Link
+              href="#"
+              sx={linkStyle}
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavigation('/status');
+              }}
+            >
+              Status
+            </Link>,
+          ].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
@@ -59,12 +95,18 @@ export default function UserSidebar() {
             </ListItem>
           ))}
 
-          {user && ( // Only show logout if the user is authenticated
+          {user && (
             <ListItemButton onClick={logout} disablePadding>
               <ListItemIcon>
                 <LogoutIcon />
               </ListItemIcon>
-              <ListItemText primary={<Link href="/" sx={linkStyle}>Logout</Link>} />
+              <ListItemText
+                primary={
+                  <Link href="#" sx={linkStyle} onClick={(e) => { e.preventDefault(); handleNavigation('/'); }}>
+                    Logout
+                  </Link>
+                }
+              />
             </ListItemButton>
           )}
         </List>

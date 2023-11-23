@@ -30,16 +30,13 @@ function AdminLogin() {
   const {Adminlogin,loading}=useAuth();
   const [email, setPhonenumber] = useState('');
   const [password, setAadharnumber] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);//
   const [error, setError] = useState('');
 
-  
 
- /**
-  * @param {}
-  * @returns 
-  */
-
+  /**
+   * @param {boolean} showPassword - show true if toggle is enabled
+   */
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -47,6 +44,12 @@ function AdminLogin() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+   /**
+  * @param {string} email=email of the user to post
+  * @param {string} password=password of the user
+  * @returns 
+  */
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -1,44 +1,17 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import jwtDecode from 'jwt-decode';
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-//   const [admin, setAdmin] = useState(null);
-  const [loading, setLoading] = useState(true); // New state for loading
+  const [user, setUser] = useState(() => {
+    const token = localStorage.getItem('authToken');
+    return token ? jwtDecode(token) : null;
+  });
 
-  useEffect(() => {
-    try {
-      const token = localStorage.getItem('authToken');
-      if (token) {
-        const decodedUser = jwtDecode(token);
-        setUser(decodedUser);
-      }
-    } catch (error) {
-      console.error('Error decoding token:', error);
-      localStorage.removeItem('authToken');
-      setUser(null);
-    }
-  
-    setLoading(false);
-  }, []);
-//   const Adminlogin = (token) => {
-//     // Logic to set admin data after successful login
-   
-//     localStorage.setItem('adminToken', token);
-//      // Set admin token in local storage
-//   };
-
-//   const Adminlogout = () => {
-//     // Logic to clear admin data after logout
-//     setAdmin(null);
-//     localStorage.removeItem('adminToken'); // Remove admin token from local storage
-//   };
   const login = (token) => {
     localStorage.setItem('authToken', token);
     const decodedUser = jwtDecode(token);
-    
     setUser(decodedUser);
   };
 
@@ -47,8 +20,13 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  const getToken = () => {
+    return localStorage.getItem('authToken');
+  };
+  
+
   return (
-    <AuthContext.Provider value={{ user,login, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, logout, getToken }}>
       {children}
     </AuthContext.Provider>
   );
