@@ -35,6 +35,7 @@ import ForgotPassword from './components/Pages/UserComponents/UserAuth/ForgotPas
 import ResetPassword from './components/Pages/UserComponents/UserAuth/ResetPassword';
 import SuperWiser from './components/Pages/AdminComponents/SuperWiser';
 import { AuthProvider } from './context/AuthContext';
+import { FeedbackProvider } from './context/FeedbackContext';
 import { PrivateRoute } from './context/PrivateRoutes';
 
 
@@ -50,7 +51,10 @@ function App() {
   
   return (
     <div className="App">
+
     <AuthProvider>
+    <FeedbackProvider>
+      
        <Router>
       
        
@@ -80,7 +84,7 @@ function App() {
 
           <Route path='/reset-Password' element ={<ResetPassword/>}/>
           
-          <Route path='/Feedback' element={<PrivateRoute element={<FeedbackForm />} />}/>
+          <Route path='/Feedback' element={<PrivateRoute><FeedbackForm/></PrivateRoute>}/>
          
 
           {/* <Route path='/Info' element={<Info/>}/>  */}
@@ -94,6 +98,7 @@ function App() {
 
         </Routes>
       </Router>
+      </FeedbackProvider>
    
       </AuthProvider>
       

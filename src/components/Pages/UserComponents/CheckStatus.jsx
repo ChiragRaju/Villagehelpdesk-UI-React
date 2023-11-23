@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+// CheckIssueStatus.js
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,47 +10,18 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { Button, Typography } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import { useAuth } from '../../../context/AuthContext';
+import { useIssue, IssueProvider } from '../../../context/IssueContext';
 
 const CheckIssueStatus = () => {
   const { user } = useAuth();
   const fullname = user?.email || '';
-  const [userIssues, setUserIssues] = useState([]);
-  const [error, setError] = useState(null);
+  const { userIssues, error, fetchUserIssues } = useIssue();
 
   useEffect(() => {
-    handleCheckStatus();
-  }, []);
-
-  const handleCheckStatus = () => {
-    if (!fullname) {
-      setError('User ID is required.');
-      return;
-    }
-
-    // Fetch issue details when the user clicks the check status button
-    fetch(`http://localhost:8000/api/issues/check-issue-status/${fullname}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (data.error) {
-          setError(data.error);
-          setUserIssues([]);
-        } else {
-          setUserIssues(data.userIssues);
-          setError(null);
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching issue details:', error);
-        setError('User not found. Error fetching issue details.');
-        setUserIssues([]);
-      });
-  };
+    fetchUserIssues(fullname);
+  }, [fetchUserIssues, fullname]);
 
   const btnstyle = { margin: '8px 0' };
 
@@ -86,14 +58,14 @@ const CheckIssueStatus = () => {
                     <TableCell>{issue.status}</TableCell>
                     <TableCell>
                       {issue.status === 'resolved' ? (
-                        <Link
+                        <RouterLink
                           to={`/Feedback?email=${fullname}&issueId=${issue.issueId}`}
                           style={{ textDecoration: 'none' }}
                         >
                           <Button variant="contained" color="primary" style={btnstyle}>
                             Feedback Form
                           </Button>
-                        </Link>
+                        </RouterLink>
                       ) : " not resolved"}
                     </TableCell>
                   </TableRow>
@@ -103,8 +75,17 @@ const CheckIssueStatus = () => {
           </TableContainer>
         </Grid>
       )}
+      {error && <Typography variant="body1" color="error">{error}</Typography>}
     </div>
   );
 };
 
-export default CheckIssueStatus;
+const CheckIssueStatusWithContext = () => {
+  return (
+    <IssueProvider>
+      <CheckIssueStatus />
+    </IssueProvider>
+  );
+};
+
+export default CheckIssueStatusWithContext;
