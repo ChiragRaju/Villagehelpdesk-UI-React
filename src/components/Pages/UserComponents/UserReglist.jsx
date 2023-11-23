@@ -57,7 +57,6 @@ const UserReglist = () => {
               <StyledTableCell />
               <StyledTableCell>Firstname</StyledTableCell>
               <StyledTableCell>Lastname</StyledTableCell>
-              <StyledTableCell>Addhar</StyledTableCell>
               <StyledTableCell>Phone</StyledTableCell>
               <StyledTableCell>City</StyledTableCell>
               <StyledTableCell>Pincode</StyledTableCell>
@@ -70,7 +69,6 @@ const UserReglist = () => {
                 <StyledTableCell />
                 <StyledTableCell>{user.firstName}</StyledTableCell>
                 <StyledTableCell>{user.lastName}</StyledTableCell>
-                <StyledTableCell>{user.aadharCard}</StyledTableCell>
                 <StyledTableCell>{user.phoneNumber}</StyledTableCell>
                 <StyledTableCell>{user.city}</StyledTableCell>
                 <StyledTableCell>{user.pincode}</StyledTableCell>
