@@ -1,19 +1,19 @@
 // FeedbackContext.js
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import axios from "axios";
 
 const FeedbackContext = createContext();
 
 export const FeedbackProvider = ({ children }) => {
   const [userData, setUserData] = useState([]);
-  const url = "http://localhost:8000/feedback/get-feedback";
+  const url = "https://villagehelpdeskapi.onrender.com/feedback/get-feedback";
 
   const fetchInfo = async () => {
     try {
       const response = await axios.get(url);
       setUserData(response.data);
     } catch (error) {
-      console.error('Error fetching feedback data:', error);
+      console.error("Error fetching feedback data:", error);
     }
   };
 

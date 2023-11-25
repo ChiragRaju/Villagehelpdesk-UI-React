@@ -1,20 +1,20 @@
 // NotificationSenderComponent.jsx
-import React, { useState, useEffect } from 'react';
-import { Grid, Paper, TextField, Button, Typography } from '@mui/material';
-import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Grid, Paper, TextField, Button, Typography } from "@mui/material";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const NotificationSenderComponent = ({ onSendNotification }) => {
   const [loading, setLoading] = useState(false);
-  const [userId, setUserId] = useState('');
-  const [issueId, setIssueId] = useState('');
-  const [notificationMessage, setNotificationMessage] = useState('');
+  const [userId, setUserId] = useState("");
+  const [issueId, setIssueId] = useState("");
+  const [notificationMessage, setNotificationMessage] = useState("");
 
   // Use the useLocation hook to get parameters from the URL
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const userIdParam = searchParams.get('userId');
-  const issueIdParam = searchParams.get('issueId');
+  const userIdParam = searchParams.get("userId");
+  const issueIdParam = searchParams.get("issueId");
 
   useEffect(() => {
     // Set the state with parameters from the URL
@@ -28,19 +28,23 @@ const NotificationSenderComponent = ({ onSendNotification }) => {
 
       // Validate that userId and issueId are not empty before sending
       if (!userId || !issueId) {
-        console.error('User ID and Issue ID are required');
+        console.error("User ID and Issue ID are required");
         return;
       }
 
       // Fetch latitude and longitude based on userId and issueId
-      const issuesResponse = await axios.get('http://localhost:8000/api/issues/allissues');
+      const issuesResponse = await axios.get(
+        "https://villagehelpdeskapi.onrender.com/api/issues/allissues"
+      );
       const issues = issuesResponse.data;
 
       // Find the issue with the matching userId and issueId
-      const selectedIssue = issues.find((issue) => issue.userId === userId && issue.id === issueId);
+      const selectedIssue = issues.find(
+        (issue) => issue.userId === userId && issue.id === issueId
+      );
 
       if (!selectedIssue) {
-        console.error('Issue not found for the provided User ID and Issue ID');
+        console.error("Issue not found for the provided User ID and Issue ID");
         return;
       }
 
@@ -61,19 +65,21 @@ const NotificationSenderComponent = ({ onSendNotification }) => {
       });
 
       if (filteredLocations.length === 0) {
-        console.log('Users not found in 1km radius');
-        setNotificationMessage('Users not found in 1km radius');
+        console.log("Users not found in 1km radius");
+        setNotificationMessage("Users not found in 1km radius");
         return;
       }
 
       // Send a request to the notification endpoint with latitude and longitude
-      await axios.get(`http://localhost:8000/locations/sendNotifications?latitude=${latitude}&longitude=${longitude}`);
+      await axios.get(
+        `https://villagehelpdeskapi.onrender.com/locations/sendNotifications?latitude=${latitude}&longitude=${longitude}`
+      );
 
-      console.log('Notification sent successfully');
-      setNotificationMessage('Notification sent successfully');
+      console.log("Notification sent successfully");
+      setNotificationMessage("Notification sent successfully");
     } catch (error) {
-      console.error('Error sending notification:', error);
-      setNotificationMessage('Error sending notification. Please try again.');
+      console.error("Error sending notification:", error);
+      setNotificationMessage("Error sending notification. Please try again.");
     } finally {
       setLoading(false);
       // If a callback function is provided, invoke it with the selected issue
@@ -85,18 +91,18 @@ const NotificationSenderComponent = ({ onSendNotification }) => {
 
   const paperStyle = {
     padding: 20,
-    height: 'auto',
-    width: '300px',
-    margin: '20px auto',
+    height: "auto",
+    width: "300px",
+    margin: "20px auto",
   };
 
   const inputStyle = {
-    width: '100%',
-    margin: '10px 0',
+    width: "100%",
+    margin: "10px 0",
   };
 
   const buttonStyle = {
-    marginTop: '20px',
+    marginTop: "20px",
   };
 
   return (
@@ -133,7 +139,7 @@ const NotificationSenderComponent = ({ onSendNotification }) => {
           disabled={loading}
           style={buttonStyle}
         >
-          {loading ? 'Sending...' : 'Send Notification'}
+          {loading ? "Sending..." : "Send Notification"}
         </Button>
       </Paper>
     </Grid>
@@ -150,7 +156,10 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
   const dLon = deg2rad(lon2 - lon1);
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    Math.cos(deg2rad(lat1)) *
+      Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distance = R * c; // Distance in km
   return distance;

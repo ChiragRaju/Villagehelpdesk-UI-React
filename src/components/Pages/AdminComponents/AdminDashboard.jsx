@@ -72,7 +72,7 @@ const AdminDashboard = () => {
             mode: bg,
         },
     });
-    const url="http://localhost:8000/feedback/get-feedback";
+    const url="https://villagehelpdeskapi.onrender.com/feedback/get-feedback";
  const [userData,setuserData]=useState([]);
 //FUNCTION FOR FECTHING DATA
 const fetchInfo=()=>{

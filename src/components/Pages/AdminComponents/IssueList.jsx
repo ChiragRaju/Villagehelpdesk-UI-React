@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { styled } from '@mui/material/styles';
-import  { tableCellClasses } from '@mui/material/TableCell';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { styled } from "@mui/material/styles";
+import { tableCellClasses } from "@mui/material/TableCell";
+import { Link } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -11,12 +11,10 @@ import {
   TableHead,
   TableRow,
   Paper,
-  
   Button,
-} from '@mui/material';
+} from "@mui/material";
 
-
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -29,26 +27,22 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
+  "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
   // hide last border
-  '&:last-child td, &:last-child th': {
+  "&:last-child td, &:last-child th": {
     border: 0,
   },
 }));
-
-
 
 function IssueList() {
   const [issues, setIssues] = useState([]);
   const [images, setImages] = useState([]);
   const [selectedIssue, setSelectedIssue] = useState(null);
   const navigate = useNavigate();
-  
 
-
-  const url = 'http://localhost:8000/api/issues/allissues';
+  const url = "https://villagehelpdeskapi.onrender.com/api/issues/allissues";
 
   const fetchInfo = () => {
     return axios
@@ -56,10 +50,9 @@ function IssueList() {
       .then((res) => {
         setIssues(res.data);
         setImages(res.data[0].image);
-        
       })
       .catch((error) => {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       });
   };
 
@@ -67,7 +60,6 @@ function IssueList() {
     fetchInfo();
   }, []);
 
-  
   const handleSendNotification = (issue) => {
     // Set the selected issue when the button is clicked
     setSelectedIssue(issue);
@@ -78,68 +70,80 @@ function IssueList() {
     navigate(`/send-notifications?userId=${userId}&issueId=${issueId}`);
   };
 
-
   return (
     <div>
-      <div style={{marginBottom:"10px",marginTop:"10px"}}>
-      <Link to='/AdminDashboard'>
-      <Button  variant="contained" color="primary">Back</Button>
-      </Link>
+      <div style={{ marginBottom: "10px", marginTop: "10px" }}>
+        <Link to="/AdminDashboard">
+          <Button variant="contained" color="primary">
+            Back
+          </Button>
+        </Link>
       </div>
-     
+
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
-            <StyledTableCell>UserId</StyledTableCell>
-  <StyledTableCell>IssueId</StyledTableCell>
-  <StyledTableCell>Description</StyledTableCell>
-  <StyledTableCell>Image</StyledTableCell>
-  <StyledTableCell>State</StyledTableCell>
-  <StyledTableCell>City</StyledTableCell>
-  <StyledTableCell>Road</StyledTableCell>
-  <StyledTableCell>Address</StyledTableCell>
-  <StyledTableCell>Status</StyledTableCell>
-  <StyledTableCell>Update Status</StyledTableCell>
-  <StyledTableCell>Notification</StyledTableCell>
-
+              <StyledTableCell>UserId</StyledTableCell>
+              <StyledTableCell>IssueId</StyledTableCell>
+              <StyledTableCell>Description</StyledTableCell>
+              <StyledTableCell>Image</StyledTableCell>
+              <StyledTableCell>State</StyledTableCell>
+              <StyledTableCell>City</StyledTableCell>
+              <StyledTableCell>Road</StyledTableCell>
+              <StyledTableCell>Address</StyledTableCell>
+              <StyledTableCell>Status</StyledTableCell>
+              <StyledTableCell>Update Status</StyledTableCell>
+              <StyledTableCell>Notification</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {issues.sort((a, b) => {
+            {issues
+              .sort((a, b) => {
                 // Custom sorting function to put "resolved" status at the end
-                if (a.status === 'resolved' && b.status !== 'resolved') {
+                if (a.status === "resolved" && b.status !== "resolved") {
                   return 1;
-                } else if (a.status !== 'resolved' && b.status === 'resolved') {
+                } else if (a.status !== "resolved" && b.status === "resolved") {
                   return -1;
                 } else {
                   return 0;
-                }}).map((issue) => (
-                  <StyledTableRow key={issue.id}>
-                <StyledTableCell>{issue.userId}</StyledTableCell>
-  <StyledTableCell>{issue.id}</StyledTableCell>
-  <StyledTableCell>{issue.description}</StyledTableCell>
-  <StyledTableCell>
-    <a href={`http://localhost:8000/${issue.image}`} target="_blank" rel="noopener noreferrer">
-      <img src={`http://localhost:8000/${issue.image}`} alt="Not uploaded" width="20" height="20" />
-    </a>
-  </StyledTableCell>
-  <StyledTableCell>{issue.state}</StyledTableCell>
-  <StyledTableCell>{issue.city}</StyledTableCell>
-  <StyledTableCell>{issue.suburb}</StyledTableCell>
-  <StyledTableCell>{issue.display_name}</StyledTableCell>
-  <StyledTableCell>{issue.status}</StyledTableCell>
-  <StyledTableCell>
-    <Link
-      to={`/update-status?userId=${issue.userId}&issueId=${issue.id}`}
-      style={{ textDecoration: 'none' }}
-    >
-      <Button variant="contained" color="primary">
-        Update Status
-      </Button>
-    </Link>
-  </StyledTableCell>
-                {/* <TableCell>
+                }
+              })
+              .map((issue) => (
+                <StyledTableRow key={issue.id}>
+                  <StyledTableCell>{issue.userId}</StyledTableCell>
+                  <StyledTableCell>{issue.id}</StyledTableCell>
+                  <StyledTableCell>{issue.description}</StyledTableCell>
+                  <StyledTableCell>
+                    <a
+                      href={`https://villagehelpdeskapi.onrender.com/${issue.image}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        src={`https://villagehelpdeskapi.onrender.com/${issue.image}`}
+                        alt="Not uploaded"
+                        width="20"
+                        height="20"
+                      />
+                    </a>
+                  </StyledTableCell>
+                  <StyledTableCell>{issue.state}</StyledTableCell>
+                  <StyledTableCell>{issue.city}</StyledTableCell>
+                  <StyledTableCell>{issue.suburb}</StyledTableCell>
+                  <StyledTableCell>{issue.display_name}</StyledTableCell>
+                  <StyledTableCell>{issue.status}</StyledTableCell>
+                  <StyledTableCell>
+                    <Link
+                      to={`/update-status?userId=${issue.userId}&issueId=${issue.id}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Button variant="contained" color="primary">
+                        Update Status
+                      </Button>
+                    </Link>
+                  </StyledTableCell>
+                  {/* <TableCell>
                   <Link
                     to={`/notification-sender?userId=${issue.userId}&issueId=${issue.id}`}
                     style={{ textDecoration: 'none' }}
@@ -150,25 +154,29 @@ function IssueList() {
                   </Link>
                  
                 </TableCell> */}
-                 <TableCell>
-                  {/* Render button only if the status is resolved */}
-                  {issue.status === 'resolved' ? (
-                    <Link
-                      to={`/send-notifications?userId=${issue.userId}&issueId=${issue.id}`}
-                      style={{ textDecoration: 'none' }}
-                    >
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => handleSendNotification(issue.userId, issue.id)}
+                  <TableCell>
+                    {/* Render button only if the status is resolved */}
+                    {issue.status === "resolved" ? (
+                      <Link
+                        to={`/send-notifications?userId=${issue.userId}&issueId=${issue.id}`}
+                        style={{ textDecoration: "none" }}
                       >
-                        Send Notification
-                      </Button>
-                    </Link>
-                  ): "Not Solved"}
-                </TableCell>
-              </StyledTableRow>
-            ))}
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={() =>
+                            handleSendNotification(issue.userId, issue.id)
+                          }
+                        >
+                          Send Notification
+                        </Button>
+                      </Link>
+                    ) : (
+                      "Not Solved"
+                    )}
+                  </TableCell>
+                </StyledTableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

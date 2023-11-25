@@ -1,21 +1,21 @@
 // ComplaintList.js
 
-import React, { useState, useEffect } from 'react';
-import Stack from '@mui/joy/Stack';
-import axios from 'axios';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import Fab from '@mui/material/Fab';
-import { Box } from '@mui/material';
-import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import Typography from '@mui/material/Typography';
-import CardContent from '@mui/material/CardContent';
-import { Button, CardActionArea, CardActions } from '@mui/material';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import { Link } from 'react-router-dom';
-import SuperWiserList from './SuperWiserList';
-import IssueList from './IssueList';
+import React, { useState, useEffect } from "react";
+import Stack from "@mui/joy/Stack";
+import axios from "axios";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import Fab from "@mui/material/Fab";
+import { Box } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import Typography from "@mui/material/Typography";
+import CardContent from "@mui/material/CardContent";
+import { Button, CardActionArea, CardActions } from "@mui/material";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import { Link } from "react-router-dom";
+import SuperWiserList from "./SuperWiserList";
+import IssueList from "./IssueList";
 
 const ComplaintList = () => {
   const [numIssues, setNumIssues] = useState(null);
@@ -24,11 +24,15 @@ const ComplaintList = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8000/api/issues/allissues')
+      .get("https://villagehelpdeskapi.onrender.com/api/issues/allissues")
       .then((response) => {
         const numberOfIssues = response.data.length;
-        const pendingIssues = response.data.filter((issue) => issue.status === 'pending');
-        const resolvedIssues = response.data.filter((issue) => issue.status === 'resolved');
+        const pendingIssues = response.data.filter(
+          (issue) => issue.status === "pending"
+        );
+        const resolvedIssues = response.data.filter(
+          (issue) => issue.status === "resolved"
+        );
 
         setNumPending(pendingIssues.length);
         setNumResolved(resolvedIssues.length);
@@ -39,7 +43,7 @@ const ComplaintList = () => {
       });
   }, []);
 
-  const [bg, setBg] = useState('dark');
+  const [bg, setBg] = useState("dark");
 
   const darkTheme = createTheme({
     palette: {
@@ -51,19 +55,19 @@ const ComplaintList = () => {
     <>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: "flex" }}>
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Stack direction="row" spacing={10}>
                   <Card
                     sx={{
-                      width: 25 + '%',
+                      width: 25 + "%",
                       height: 100,
-                      transition: 'transform 0.3s ease',
-                      cursor: 'pointer',
-                      '&:hover': {
-                        transform: 'scale(1.05)',
+                      transition: "transform 0.3s ease",
+                      cursor: "pointer",
+                      "&:hover": {
+                        transform: "scale(1.05)",
                       },
                     }}
                   >
@@ -80,18 +84,23 @@ const ComplaintList = () => {
                   </Card>
                   <Card
                     sx={{
-                      width: 25 + '%',
+                      width: 25 + "%",
                       height: 100,
-                      transition: 'transform 0.3s ease',
-                      cursor: 'pointer',
-                      '&:hover': {
-                        transform: 'scale(1.05)',
+                      transition: "transform 0.3s ease",
+                      cursor: "pointer",
+                      "&:hover": {
+                        transform: "scale(1.05)",
                       },
                     }}
                   >
                     <CardActionArea>
                       <CardContent>
-                        <Typography style={{ color: 'red' }} gutterBottom variant="h5" component="div">
+                        <Typography
+                          style={{ color: "red" }}
+                          gutterBottom
+                          variant="h5"
+                          component="div"
+                        >
                           Pending
                         </Typography>
                         <Typography variant="h6" color="text.secondary">
@@ -102,18 +111,23 @@ const ComplaintList = () => {
                   </Card>
                   <Card
                     sx={{
-                      width: 25 + '%',
+                      width: 25 + "%",
                       height: 100,
-                      transition: 'transform 0.3s ease',
-                      cursor: 'pointer',
-                      '&:hover': {
-                        transform: 'scale(1.05)',
+                      transition: "transform 0.3s ease",
+                      cursor: "pointer",
+                      "&:hover": {
+                        transform: "scale(1.05)",
                       },
                     }}
                   >
                     <CardActionArea>
                       <CardContent>
-                        <Typography style={{ color: 'blue' }} gutterBottom variant="h5" component="div">
+                        <Typography
+                          style={{ color: "blue" }}
+                          gutterBottom
+                          variant="h5"
+                          component="div"
+                        >
                           Resolved
                         </Typography>
                         <Typography variant="h6" color="text.secondary">
@@ -130,11 +144,11 @@ const ComplaintList = () => {
               <Grid item xs={12}>
                 <Card
                   sx={{
-                    height: 70 + 'vh',
-                    transition: 'transform 0.3s ease',
-                    cursor: 'pointer',
-                    '&:hover': {
-                      transform: 'scale(1.05)',
+                    height: 70 + "vh",
+                    transition: "transform 0.3s ease",
+                    cursor: "pointer",
+                    "&:hover": {
+                      transform: "scale(1.05)",
                     },
                   }}
                 >
@@ -146,7 +160,9 @@ const ComplaintList = () => {
               </Grid>
             </Grid>
             <Fab size="small" color="secondary" aria-label="add">
-              <Brightness4Icon onClick={() => setBg(bg === 'light' ? 'dark' : 'light')} />
+              <Brightness4Icon
+                onClick={() => setBg(bg === "light" ? "dark" : "light")}
+              />
             </Fab>
           </Box>
         </Box>

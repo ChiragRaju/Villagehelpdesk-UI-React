@@ -1,27 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { Chart } from "react-google-charts";
-import axios from 'axios';
+import axios from "axios";
 
 const MyChart = () => {
-  const [issues,setIssues]=useState(0);
+  const [issues, setIssues] = useState(0);
   const [numPending, setNumPending] = useState(0);
   const [numResolved, setNumResolved] = useState(0);
 
   useEffect(() => {
     // Make a GET request to your API endpoint
-    axios.get('http://localhost:8000/api/issues/allissues')
-      .then(response => {
-
-        const numIssues=response.data.length;
+    axios
+      .get("https://villagehelpdeskapi.onrender.com/api/issues/allissues")
+      .then((response) => {
+        const numIssues = response.data.length;
         // Extract the number of pending and resolved issues from the response
-        const pendingIssues = response.data.filter(issue => issue.status === 'pending');
-        const resolvedIssues = response.data.filter(issue => issue.status === 'resolved');
-        setIssues(numIssues)
-        
+        const pendingIssues = response.data.filter(
+          (issue) => issue.status === "pending"
+        );
+        const resolvedIssues = response.data.filter(
+          (issue) => issue.status === "resolved"
+        );
+        setIssues(numIssues);
+
         setNumPending(pendingIssues.length);
         setNumResolved(resolvedIssues.length);
       })
-      .catch(error => {
+      .catch((error) => {
         // Handle any errors from the API request
         console.error(error);
       });
@@ -47,6 +51,6 @@ const MyChart = () => {
       height={"400px"}
     />
   );
-}
+};
 
 export default MyChart;

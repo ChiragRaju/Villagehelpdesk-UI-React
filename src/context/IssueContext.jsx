@@ -1,5 +1,5 @@
 // IssueContext.js
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const IssueContext = createContext();
 
@@ -10,7 +10,9 @@ export const IssueProvider = ({ children }) => {
   const fetchUserIssues = (fullname) => {
     // Implement your fetch logic here...
     // Return a promise that resolves to the fetched userIssues data
-    return fetch(`http://localhost:8000/api/issues/check-issue-status/${fullname}`)
+    return fetch(
+      `https://villagehelpdeskapi.onrender.com/api/issues/check-issue-status/${fullname}`
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -27,8 +29,8 @@ export const IssueProvider = ({ children }) => {
         }
       })
       .catch((error) => {
-        console.error('Error fetching issue details:', error);
-        setError('User not found. Error fetching issue details.');
+        console.error("Error fetching issue details:", error);
+        setError("User not found. Error fetching issue details.");
         setUserIssues([]);
       });
   };

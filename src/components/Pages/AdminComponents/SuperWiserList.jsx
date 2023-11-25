@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { styled } from '@mui/material/styles';
-import { tableCellClasses } from '@mui/material/TableCell';
-import { Link } from 'react-router-dom';
+import * as React from "react";
+import { useState, useEffect } from "react";
+import { styled } from "@mui/material/styles";
+import { tableCellClasses } from "@mui/material/TableCell";
+import { Link } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -11,13 +11,10 @@ import {
   TableHead,
   TableRow,
   Paper,
-  
   Button,
-} from '@mui/material';
+} from "@mui/material";
 
-
-
-import axios from 'axios';
+import axios from "axios";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -30,10 +27,10 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
+  "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
-  '&:last-child td, &:last-child th': {
+  "&:last-child td, &:last-child th": {
     border: 0,
   },
 }));
@@ -41,20 +38,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function SuperWiserList() {
   const [bg, setBg] = useState("dark");
 
-  
-
-  const url = "http://localhost:8000/supervisors";
+  const url = "https://villagehelpdeskapi.onrender.com/supervisors";
   const [userData, setUserData] = useState([]);
 
   // FUNCTION FOR FETCHING DATA
   const fetchInfo = () => {
-    return axios.get(url)
+    return axios
+      .get(url)
       .then((res) => {
         setUserData(res.data);
         console.log(userData);
       })
       .catch((error) => {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       });
   };
 
@@ -64,14 +60,15 @@ export default function SuperWiserList() {
 
   return (
     <>
-   
-   <div style={{marginBottom:"10px",marginTop:"10px"}}>
-      <Link to='/AdminDashboard'>
-      <Button  variant="contained" color="primary">Back</Button>
-      </Link>
+      <div style={{ marginBottom: "10px", marginTop: "10px" }}>
+        <Link to="/AdminDashboard">
+          <Button variant="contained" color="primary">
+            Back
+          </Button>
+        </Link>
       </div>
-      
-     <TableContainer component={Paper}>
+
+      <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
             <StyledTableRow>
@@ -81,7 +78,6 @@ export default function SuperWiserList() {
               <StyledTableCell align="right">Phone</StyledTableCell>
               <StyledTableCell align="right">Address</StyledTableCell>
               <StyledTableCell align="right">Role</StyledTableCell>
-
             </StyledTableRow>
           </TableHead>
           <TableBody>
@@ -98,7 +94,6 @@ export default function SuperWiserList() {
           </TableBody>
         </Table>
       </TableContainer>
-     
     </>
   );
 }
